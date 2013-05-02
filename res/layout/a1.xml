@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+        <EditText android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_weight="5"/>
+        <Button
+                android:id="@+id/searchButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="打开"
+                android:layout_weight="1"
+                />
+        <Button
+                android:id="@+id/closeButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="关闭"
+                android:layout_weight="1"
+                />
+    </LinearLayout>
+    <FrameLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+        <LinearLayout
+                android:id="@+id/contentView"
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                >
+            <ImageView
+                    android:src="@drawable/a"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    />
+        </LinearLayout>
+        <LinearLayout
+                android:id="@+id/titleView"
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                >
+            <EditText android:layout_width="fill_parent"
+                      android:layout_height="match_parent"
+                      android:text="地球是太阳系从内到外的第三颗行星，也是太阳系中直径、质量和密度最大的类地行星。住在地球上的人类又常称呼地球为世界。地球是上百万种生物的家园，[1]包括人类。地球是目前人类所知宇宙中唯一存在生命的天体。                                        "
+                      android:background="#fffdce" android:textColor="#000000"/>
+        </LinearLayout>
+    </FrameLayout>
+</LinearLayout>
