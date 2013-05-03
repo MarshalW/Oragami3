@@ -73,14 +73,17 @@ public class TextureMesh {
             glTexParameterf(GL_TEXTURE_2D,
                     GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 
+        } else {
+            glBindTexture(GL_TEXTURE_2D, textureId[0]);
+        }
+
+        if(texture!=null){
             glEnable(GL_TEXTURE_2D);
             GLUtils.texImage2D(GL_TEXTURE_2D, 0, texture, 0);
             glDisable(GL_TEXTURE_2D);
 
             this.texture.recycle();
             this.texture = null;
-        } else {
-            glBindTexture(GL_TEXTURE_2D, textureId[0]);
         }
 
         int aTextureCoord = this.shader.getHandle("aTextureCoord");
@@ -106,10 +109,6 @@ public class TextureMesh {
     }
 
     public void clear() {
-        if(textureId!=null){
-            glDeleteTextures(1, textureId, 0);
-        }
-        textureId = null;
         vertexes = null;
     }
 

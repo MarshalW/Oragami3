@@ -22,18 +22,30 @@ public class AnimationSearchViewController extends SearchViewController {
 
     private long fadeDelay = 100;
 
-    public AnimationSearchViewController(Activity context, int titleViewId) {
-        super(context, titleViewId);
+    public AnimationSearchViewController(Activity context, int titleViewId){
+        this(context, titleViewId,null);
+    }
+
+    public AnimationSearchViewController(Activity context, int titleViewId, EndCallback callback) {
+        super(context, titleViewId,callback);
         this.init();
     }
 
     public AnimationSearchViewController(Activity context, int titleViewId, int contentViewId) {
-        super(context, titleViewId, contentViewId);
+        this(context, titleViewId, contentViewId, null);
+    }
+
+    public AnimationSearchViewController(Activity context, int titleViewId, int contentViewId, EndCallback callback) {
+        super(context, titleViewId, contentViewId, callback);
         this.init();
     }
 
-    public AnimationSearchViewController(Activity context, int titleViewId, int contentViewId,boolean horizon) {
-        super(context, titleViewId, contentViewId,horizon);
+    public AnimationSearchViewController(Activity context, int titleViewId, int contentViewId, boolean horizon) {
+        this(context, titleViewId, contentViewId, horizon, null);
+    }
+
+    public AnimationSearchViewController(Activity context, int titleViewId, int contentViewId, boolean horizon, EndCallback callback) {
+        super(context, titleViewId, contentViewId, horizon, callback);
         this.init();
     }
 
@@ -42,9 +54,9 @@ public class AnimationSearchViewController extends SearchViewController {
     }
 
     private void init() {
-        if(horizon){
-            animationView=new HorizonalSearchAnimationView(context,titleView,contentView);
-        }else {
+        if (horizon) {
+            animationView = new HorizonalSearchAnimationView(context, titleView, contentView);
+        } else {
             animationView = new SearchAnimationView(context, titleView, contentView);
         }
 
@@ -69,7 +81,7 @@ public class AnimationSearchViewController extends SearchViewController {
                 } else {
                     AnimationSearchViewController.super.closed();
                 }
-                opened=!opened;
+                opened = !opened;
             }
         };
     }
@@ -84,7 +96,7 @@ public class AnimationSearchViewController extends SearchViewController {
     @Override
     public void open() {
         if (!opened) {
-           opened();
+            opened();
         }
     }
 

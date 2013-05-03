@@ -28,22 +28,39 @@ public class SearchViewController {
 
     private int titleSize;
 
+    private EndCallback callback;
+
     public SearchViewController(Activity context, int titleViewId) {
+        this(context, titleViewId, null);
+    }
+
+    public SearchViewController(Activity context, int titleViewId, EndCallback callback) {
         this.context = context;
         titleView = this.context.findViewById(titleViewId);
+        this.callback = callback;
         this.init();
     }
 
     public SearchViewController(Activity context, int titleViewId, int contentViewId) {
+        this(context, titleViewId, contentViewId, null);
+    }
+
+    public SearchViewController(Activity context, int titleViewId, int contentViewId, EndCallback callback) {
         this.context = context;
         titleView = this.context.findViewById(titleViewId);
         contentView = this.context.findViewById(contentViewId);
+        this.callback = callback;
         this.init();
     }
 
     public SearchViewController(Activity context, int titleViewId, int contentViewId, boolean horizon) {
+        this(context, titleViewId, contentViewId, horizon, null);
+    }
+
+    public SearchViewController(Activity context, int titleViewId, int contentViewId, boolean horizon, EndCallback callback) {
         this(context, titleViewId, contentViewId);
         this.horizon = horizon;
+        this.callback = callback;
     }
 
     private void init() {
@@ -73,6 +90,9 @@ public class SearchViewController {
                 layoutParams.setMargins(titleSize, 0, 0, 0);
             }
             contentView.setLayoutParams(layoutParams);
+        }
+        if (callback != null) {
+            callback.opened();
         }
     }
 
@@ -105,5 +125,15 @@ public class SearchViewController {
             layoutParams.setMargins(0, 0, 0, 0);
             contentView.setLayoutParams(layoutParams);
         }
+
+        if (callback != null) {
+            callback.closed();
+        }
+    }
+
+    public interface EndCallback {
+        void opened();
+
+        void closed();
     }
 }

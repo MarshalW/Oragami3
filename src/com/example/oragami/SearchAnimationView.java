@@ -46,16 +46,23 @@ public class SearchAnimationView extends GLSurfaceView implements GLSurfaceView.
     private AnimatorListenerAdapter animatorListener = new AnimatorListenerAdapter() {
         @Override
         public void onAnimationEnd(Animator animation) {
-            queueEvent(new Runnable() {
+            getHandler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    for (TextureMesh mesh : textureMeshs) {
-                        mesh.clear();
-                    }
-                    shadowMesh.clear();
-                    requestRender();
+                    queueEvent(new Runnable() {
+                        @Override
+                        public void run() {
+                            for (TextureMesh mesh : textureMeshs) {
+                                mesh.clear();
+                            }
+                            shadowMesh.clear();
+                            requestRender();
+                        }
+                    });
                 }
-            });
+            }, 50);
+
+
         }
     };
 
@@ -161,9 +168,9 @@ public class SearchAnimationView extends GLSurfaceView implements GLSurfaceView.
         }
 
         //如果有下面的图，生成下面的部分
-        Vertex[] contentArray =null;
+        Vertex[] contentArray = null;
 
-        if(contentView!=null){
+        if (contentView != null) {
             _h = 2f * contentView.getHeight() / height;
 
             contentArray = new Vertex[]{
@@ -178,7 +185,7 @@ public class SearchAnimationView extends GLSurfaceView implements GLSurfaceView.
             }
         }
 
-        final  Vertex[] _contentArray=contentArray;
+        final Vertex[] _contentArray = contentArray;
 
         queueEvent(new Runnable() {
             @Override

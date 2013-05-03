@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 /**
  * Created with IntelliJ IDEA.
@@ -22,8 +23,27 @@ public class Activity1 extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.a1);
 
+        SearchViewController.EndCallback callback = new SearchViewController.EndCallback() {
+            @Override
+            public void opened() {
+                Toast.makeText(Activity1.this, "打开..", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void closed() {
+                Toast.makeText(Activity1.this, "关闭.", Toast.LENGTH_SHORT).show();
+            }
+        };
+
+        /**
+         * 不带动画版本
+         */
 //        controller = new SearchViewController(this, R.id.titleView, R.id.contentView);
-        controller = new AnimationSearchViewController(this, R.id.titleView, R.id.contentView);
+
+        /**
+         * 带动画版本
+         */
+        controller = new AnimationSearchViewController(this, R.id.titleView, R.id.contentView, callback);
 
         searchButton = (Button) findViewById(R.id.searchButton);
         searchButton.setOnClickListener(this);
