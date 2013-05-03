@@ -22,12 +22,14 @@ public class AnimationSearchViewController extends SearchViewController {
 
     private long fadeDelay = 100;
 
-    public AnimationSearchViewController(Activity context, int titleViewId){
-        this(context, titleViewId,null);
+    private boolean animating;
+
+    public AnimationSearchViewController(Activity context, int titleViewId) {
+        this(context, titleViewId, null);
     }
 
     public AnimationSearchViewController(Activity context, int titleViewId, EndCallback callback) {
-        super(context, titleViewId,callback);
+        super(context, titleViewId, callback);
         this.init();
     }
 
@@ -65,6 +67,7 @@ public class AnimationSearchViewController extends SearchViewController {
         animatorListener = new AnimatorListenerAdapter() {
             @Override
             public void onAnimationStart(Animator animation) {
+                animating = true;
                 rootView.getHandler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -82,12 +85,17 @@ public class AnimationSearchViewController extends SearchViewController {
                     AnimationSearchViewController.super.closed();
                 }
                 opened = !opened;
+                animating = false;
             }
         };
     }
 
     @Override
     public void close() {
+        if (animating) {
+            return;
+        }
+
         if (opened) {
             closed();
         }
@@ -95,6 +103,10 @@ public class AnimationSearchViewController extends SearchViewController {
 
     @Override
     public void open() {
+        if (animating) {
+            return;
+        }
+
         if (!opened) {
             opened();
         }

@@ -20,6 +20,8 @@ public class AnimationLoginViewController extends LoginViewController implements
 
     private LoginAnimationView animationView;
 
+    private boolean animating;
+
     public AnimationLoginViewController(Activity context, ViewGroup rootView) {
         this(context, rootView, null);
     }
@@ -56,9 +58,18 @@ public class AnimationLoginViewController extends LoginViewController implements
 
     @Override
     public void onClick(final View view) {
+        if (animating) {
+            return;
+        }
         animationView.startAnimation(getViewPair(view), new AnimatorListenerAdapter() {
             @Override
+            public void onAnimationStart(Animator animation) {
+                animating = true;
+            }
+
+            @Override
             public void onAnimationEnd(Animator animation) {
+                animating = false;
                 AnimationLoginViewController.super.onClick(view);
             }
         });
