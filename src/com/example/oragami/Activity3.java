@@ -1,6 +1,7 @@
 package com.example.oragami;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -47,6 +48,7 @@ public class Activity3 extends Activity implements View.OnClickListener {
          * 带动画版本
          */
         controller = new AnimationSearchViewController(this, R.id.titleView, R.id.contentView, true, callback);
+        ((AnimationSearchViewController)controller).getAnimationView().setAnimateBackgroundColor(Color.BLUE);
 
         runButton = (Button) findViewById(R.id.runButton);
         runButton.setOnClickListener(this);

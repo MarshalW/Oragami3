@@ -77,7 +77,7 @@ public class TextureMesh {
             glBindTexture(GL_TEXTURE_2D, textureId[0]);
         }
 
-        if(texture!=null){
+        if (texture != null) {
             glEnable(GL_TEXTURE_2D);
             GLUtils.texImage2D(GL_TEXTURE_2D, 0, texture, 0);
             glDisable(GL_TEXTURE_2D);
@@ -110,6 +110,10 @@ public class TextureMesh {
 
     public void clear() {
         vertexes = null;
+    }
+
+    public boolean isClear() {
+        return vertexes == null;
     }
 
     private void initBuffer() {

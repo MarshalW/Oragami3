@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.graphics.RectF;
 import android.opengl.GLSurfaceView;
@@ -38,6 +39,12 @@ public class SearchAnimationView extends GLSurfaceView implements GLSurfaceView.
     protected TextureMesh[] textureMeshs;
 
     protected ShadowMesh shadowMesh;
+
+    private int animateBackgroundColor = -1;
+
+    public void setAnimateBackgroundColor(int animateBackgroundColor) {
+        this.animateBackgroundColor = animateBackgroundColor;
+    }
 
     public void setDuration(long duration) {
         this.duration = duration;
@@ -114,6 +121,20 @@ public class SearchAnimationView extends GLSurfaceView implements GLSurfaceView.
 
     @Override
     public void onDrawFrame(GL10 gl10) {
+        if (textureMeshs != null
+                && !textureMeshs[0].isClear()
+                && animateBackgroundColor != -1) {
+            glClearColor(
+                    Color.red(animateBackgroundColor),
+                    Color.green(animateBackgroundColor),
+                    Color.blue(animateBackgroundColor),
+                    Color.alpha(animateBackgroundColor)
+            );
+        } else {
+            glClearColor(0, 0, 0, 0);
+        }
+
+
         glClear(GL_COLOR_BUFFER_BIT);
 
         for (int i = 0; i < textureMeshs.length; i++) {
